@@ -49,9 +49,7 @@ class PdfApp(MDApp):
         self.theme_cls.primary_palette = "Green"
         self.manager_open = False
         self.file_manager = MDFileManager(
-            exit_manager=self.exit_manager,
-            select_path=self.select_path,
-            preview=True,
+            exit_manager=self.exit_manager, select_path=self.select_path, preview=True,
         )
 
     def build(self):
@@ -62,20 +60,18 @@ class PdfApp(MDApp):
         self.file_manager.show("/")
         self.manager_open = True
 
-    def select_path(self, path):
-        if path not in self.selected_imgs_path_list:
-            self.selected_imgs_path_list.append(path)
-        else:
-            self.selected_imgs_path_list.remove(path)
-        # self.exit_manager()
-        print(self.selected_imgs_path_list)
+    def select_path(self, list_path):
 
-    def exit_manager(self, *args):
+        self.jay = list_path
+
+        print(self.jay)
+
+    def exit_manager(self, list=None, *args):
+
         if "selection_done" in args:
-            print("jay")
-        else:
-            self.manager_open = False
-            self.file_manager.close()
+            self.select_path(list)
+        self.manager_open = False
+        self.file_manager.close()
 
     def change_screen(self, name, *args):
         if "is_drawer_call" in args:
