@@ -26,11 +26,9 @@ Display_main:
                         text: "Home"
                         # on_press:
                         #     root.nav_drawer.set_state("close")
-
                         on_release: 
                             app.change_screen('img2pdfscr',"is_drawer_call")
                             app.root.ids.nav_drawer.set_state('close')
-
 
                     OneLineListItem:
                         text: "About us"
