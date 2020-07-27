@@ -4,6 +4,16 @@ from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from filemanager import MDFileManager
 
+# from android.permissions import request_permissions, Permission
+# from android.storage import primary_external_storage_path
+
+# request_permissions(
+#     [Permission.WRITE_EXTERNAL_STORAGE,
+#     Permission.READ_EXTERNAL_STORAGE]
+# )
+
+# SD_CARD = primary_external_storage_path()
+
 Window.size = (360, 600)
 
 
@@ -30,15 +40,19 @@ sm.add_widget(File_manager(name="filemanagerscr"))
 
 
 class PdfApp(MDApp):
+
+    selected_imgs_path_list = []
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # Window.bind(on_keyboard=self.events)
         self.theme_cls.primary_palette = "Green"
         self.manager_open = False
         self.file_manager = MDFileManager(
-            exit_manager=self.exit_manager, 
+            exit_manager=self.exit_manager,
             ext=[".pdf"],
-            select_path=self.select_path, previous=True,
+            select_path=self.select_path,
+            previous=True,
         )
 
     def build(self):
@@ -50,16 +64,28 @@ class PdfApp(MDApp):
         self.manager_open = True
 
     def select_path(self, path):
+        if path not in self.selected_imgs_path_list:
+            self.selected_imgs_path_list.append(path)
+        else:
+            self.selected_imgs_path_list.remove(path)
         # self.exit_manager()
-        print(path)
+        print(self.selected_imgs_path_list)
 
     def exit_manager(self, *args):
-        self.manager_open = False
-        self.file_manager.close()
+        if "selection_done" in args:
+            print("jay")
+        else:
+            self.manager_open = False
+            self.file_manager.close()
 
-    def change_screen(self, name):
-        self.root.ids.manager.transition.direction = "right"
-        self.root.ids.manager.current = name
+    def change_screen(self, name, *args):
+        if "is_drawer_call" in args:
+            self.root.ids.manager.transition.direction = "right"
+            self.root.ids.manager.current = name
+            # self.root.ids.nav_drawer.set_state('close')
+        else:
+            self.root.ids.manager.transition.direction = "right"
+            self.root.ids.manager.current = name
 
 
 PdfApp().run()

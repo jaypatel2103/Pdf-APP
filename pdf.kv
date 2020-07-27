@@ -18,6 +18,37 @@ Display_main:
 
         MDNavigationDrawer:
             id: nav_drawer
+            ScrollView:
+
+                MDList:
+
+                    OneLineListItem:
+                        text: "Home"
+                        # on_press:
+                        #     root.nav_drawer.set_state("close")
+
+                        on_release: 
+                            app.change_screen('img2pdfscr',"is_drawer_call")
+                            app.root.ids.nav_drawer.set_state('close')
+
+
+                    OneLineListItem:
+                        text: "About us"
+                        # on_press:
+                        #     root.nav_drawer.set_state("close")
+                        #     root.screen_manager.current = "scr 2"
+
+                    OneLineListItem:
+                        text: "Emperrorbros@gmail.com"
+                        # on_press:
+                        #     root.nav_drawer.set_state("close")
+                        #     root.screen_manager.current = "scr 3"
+                    OneLineListItem:
+                        text: "setting"
+                        # on_press:
+                        #     root.nav_drawer.set_state("close")
+                        #     root.screen_manager.current = "scr 4"
+
 
 <Mainscreen>:
     # id: mainscr
@@ -42,7 +73,7 @@ Display_main:
         title: "Image to Pdf"
         left_action_items: [['arrow-left', lambda x: app.change_screen('mainscr')]]
     MDFloatingActionButton:
-        icon: "check"
+        icon: "plus"
         pos_hint: {'center_x': 0.9,'center_y':0.09}
         md_bg_color: app.theme_cls.primary_color
         on_press: app.open_filemanager()
