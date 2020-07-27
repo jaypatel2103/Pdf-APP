@@ -2,7 +2,7 @@ from kivymd.app import MDApp
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
-from filemanager import MDFileManager
+from kivymd.uix.filemanager import MDFileManager
 
 # from android.permissions import request_permissions, Permission
 # from android.storage import primary_external_storage_path
@@ -50,9 +50,8 @@ class PdfApp(MDApp):
         self.manager_open = False
         self.file_manager = MDFileManager(
             exit_manager=self.exit_manager,
-            ext=[".pdf"],
             select_path=self.select_path,
-            previous=True,
+            preview=True,
         )
 
     def build(self):
